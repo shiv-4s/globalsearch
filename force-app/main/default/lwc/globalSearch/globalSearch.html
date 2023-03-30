@@ -1,0 +1,138 @@
+<template>
+    <lightning-card>
+        <div class="slds-m-around_medium">
+            <lightning-layout
+            vertical-align="end"
+            class="slds-var-m-bottom_small"
+            >
+            <lightning-layout-item flexibility="grow">
+                <lightning-input
+                    type="search"
+                    onchange={handleKeyChange}
+                    label="Search"
+                    value={searchKey}
+                ></lightning-input>
+            </lightning-layout-item>
+            <lightning-layout-item class="slds-var-p-left_xx-small">
+                <lightning-button
+                    disabled={isDisable}
+                    label="Search"
+                    onclick={handleSearch}
+                ></lightning-button>
+            </lightning-layout-item>
+            </lightning-layout>
+            <lightning-card>
+                <div class="slds-m-around_medium">
+                    <template if:true={searchKey}>
+                    <template if:true={showTab}>
+                        <div class="slds-clearfix">
+                            <div class="slds-float_left">
+                                <strong><h1> Search Results </h1></strong>
+                            </div>
+                            <div class="slds-float_right">
+                                <lightning-button 
+                                variant="brand-outline" 
+                                label="View More" 
+                                title="Load More Record" 
+                                onclick={handleMoreRecord}
+                                > 
+                                </lightning-button>
+                            </div>
+                        </div>
+                        <hr>
+                        <lightning-tabset variant="vertical"> 
+                            <lightning-tab label="All">
+                                <template if:true={initialRecord}>
+                                <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped slds-table_col-bordered" aria-label="Example table of Opportunities with striped rows">
+                                    <thead>
+                                        <tr class="slds-line-height_reset">
+                                            <th class="" scope="col">
+                                                <span class="slds-truncate" title="Name" >Name</span>
+                                                <lightning-icon icon-name={iconName} size="xx-small" onclick={sortByName}>
+                                                </lightning-icon>
+                                            </th>
+                                            <th class="" scope="col">
+                                                <div class="slds-truncate" title="Name" >Phone</div>   
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <template for:each={initialRecord} for:item="finalItem">
+                                        <tr class="slds-hint-parent" key={finalItem.Id}>
+                                        <td>{finalItem.Name}</td> 
+                                        <td>{finalItem.Phone}</td> 
+                                        </tr>
+                                    </template>
+                                    </tbody>
+                                </table> 
+                            </template>
+                            </lightning-tab>
+                            <lightning-tab label="Account">
+                        <template if:true={accountData}>
+                            <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped slds-table_col-bordered" aria-label="Example table of Opportunities with striped rows">
+                                <thead>
+                                    <tr class="slds-line-height_reset">
+                                    <th class="" scope="col">
+                                        <div class="slds-truncate" title="Name">Name</div>   
+                                    </th>
+                                    <th class="" scope="col">
+                                        <div class="slds-truncate" title="Name">Email</div>   
+                                    </th>
+                                    <th class="" scope="col">
+                                        <div class="slds-truncate" title="Name">Phone</div>   
+                                    </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <template for:each={accountData} for:item="acct">
+                                    <tr class="slds-hint-parent" key={acct.Id}>
+                                    <td>{acct.Name}</td>  
+                                    <td>{acct.Email__c}</td>             
+                                    <td>{acct.Phone}</td>                        
+                                    </tr>
+                                    </template>
+                                </tbody>
+                            </table> 
+                        </template>
+                            </lightning-tab>
+                            <lightning-tab label="Contact">
+                                <template if:true={contactData}>
+                                    <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped slds-table_col-bordered" aria-label="Example table of Opportunities with striped rows">
+                                        <thead>
+                                            <tr class="slds-line-height_reset">
+                                                <th class="" scope="col">
+                                                    <div class="slds-truncate" title="Name">LastName</div>   
+                                                </th>
+                                                <th class="" scope="col">
+                                                    <div class="slds-truncate" title="Name">FirstName</div>   
+                                                </th>
+                                                <th class="" scope="col">
+                                                    <div class="slds-truncate" title="Name">Email</div>   
+                                                </th>
+                                                <th class="" scope="col">
+                                                    <div class="slds-truncate" title="Name">Phone</div>   
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                    <tbody>
+                                    <template for:each={contactData} for:item="cntct">
+                                        <tr class="slds-hint-parent" key={cntct.Id}>
+                                        <td>{cntct.LastName}</td> 
+                                        <td>{cntct.FirstName}</td>  
+                                        <td>{cntct.Email}</td>                                
+                                        <td>{cntct.Phone}</td>                                                              
+                                        </tr>
+                                    </template>
+                                    </tbody>    
+                                    </table> 
+                                </template>
+                                </lightning-tab>
+                        </lightning-tabset>
+                        
+                    </template>
+                </template>
+                </div>
+            </lightning-card>
+        </div>
+    </lightning-card>
+</template>
